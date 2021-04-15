@@ -123,12 +123,16 @@ variable_cost_data = get_expenses("variable")
 variable_cost_frame = variable_cost_data[0]
 variable_cost_sub = variable_cost_data[1]
 
-# get fixed costs
-print()
-print("**** Fixed Costs *****")
-fixed_cost_data = get_expenses("fixed")
-fixed_cost_frame = fixed_cost_data[0]
-fixed_cost_sub = fixed_cost_data[1]
+have_fixed = yes_no("Do you have fixed costs (y/n)")
+if(have_fixed == yes):
+    # get fixed costs
+    print()
+    print("**** Fixed Costs *****")
+    fixed_cost_data = get_expenses("fixed")
+    fixed_cost_frame = fixed_cost_data[0]
+    fixed_cost_sub = fixed_cost_data[1]
+else:
+    fixed_cost_sub = 0
 
 print()
 print("**** {} ****" .format(product_name))
@@ -136,8 +140,9 @@ print()
 # Variable Cost
 display_frame("Variable Costs", variable_cost_frame, variable_cost_sub)
 
-# Fixed Cost Display
-display_frame("Fixed Costs", fixed_cost_frame[['Cost']], fixed_cost_sub)
+if(have_fixed == yes):
+    # Fixed Cost Display
+    display_frame("Fixed Costs", fixed_cost_frame[['Cost']], fixed_cost_sub)
 
 # Total
 print()
