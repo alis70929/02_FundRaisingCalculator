@@ -100,31 +100,38 @@ def not_blank(question, error_message):
             print(error_message)
 
 
+def display_frame(heading, frame, subtotal):
+    print()
+    print("**** {} ****".format(heading))
+    print()
+    print(frame)
+    print()
+    print("Sub Total: ${:.2f}".format(sub_total))
+
+
 # ***************** Main Routine **************
 want_help = yes_no("Do you want to read the instructions: ")
 print("You said {}".format(want_help))
 
-# Variable Costs
+# Get Variable Costs
 print()
 print("**** Variable Costs *****")
 variable_cost_data = get_expenses("variable")
 variable_cost_frame = variable_cost_data[0]
 variable_cost_sub = variable_cost_data[1]
 
+# get fixed costs
 print()
 print("**** Fixed Costs *****")
 fixed_cost_data = get_expenses("fixed")
 fixed_cost_frame = fixed_cost_data[0]
 fixed_cost_sub = fixed_cost_data[1]
 
-print(variable_cost_frame)
-print()
-print("Sub Total: ${:.2f}".format(variable_cost_sub))
+# Variable Cost
+display_frame("Variable Costs", variable_cost_frame, variable_cost_sub)
 
-# Fixed Cost
-print(fixed_cost_frame[['Cost']])
-print()
-print("Sub Total: ${:.2f}".format(fixed_cost_sub))
+# Fixed Cost Display
+display_frame("Fixed Costs", fixed_cost_frame[['Cost']], fixed_cost_sub)
 
 # Total
 print()
