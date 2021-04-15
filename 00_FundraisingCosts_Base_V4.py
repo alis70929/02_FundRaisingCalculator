@@ -124,7 +124,7 @@ variable_cost_frame = variable_cost_data[0]
 variable_cost_sub = variable_cost_data[1]
 
 have_fixed = yes_no("Do you have fixed costs (y/n)")
-if(have_fixed == yes):
+if(have_fixed == "yes"):
     # get fixed costs
     print()
     print("**** Fixed Costs *****")
@@ -140,7 +140,7 @@ print()
 # Variable Cost
 display_frame("Variable Costs", variable_cost_frame, variable_cost_sub)
 
-if(have_fixed == yes):
+if(have_fixed == "yes"):
     # Fixed Cost Display
     display_frame("Fixed Costs", fixed_cost_frame[['Cost']], fixed_cost_sub)
 
