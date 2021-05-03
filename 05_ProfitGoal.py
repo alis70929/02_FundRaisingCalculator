@@ -1,5 +1,6 @@
 # functions go here
 
+# checks if answer is yes or no
 def yes_no(question):
     to_check = ["yes", "no"]
 
@@ -16,7 +17,7 @@ def yes_no(question):
 
         print("Please enter yes or no")
 
-# Gets how much profit is wanted
+# Get profit goal(% or $)
 def profit_goal(total_costs):
 
     valid = False
