@@ -1,4 +1,5 @@
 import pandas
+import math
 
 # loops till number is valid(integer or float) and greater than 0
 def num_check(question, error, num_type):
@@ -108,6 +109,10 @@ def display_frame(heading, frame, sub_total):
     print()
     print("Sub Total: ${:.2f}".format(sub_total))
 
+# rounds up to multiple of round_to
+def round_up(var_amount, var_round_to):
+    amount = int(math.ceil(amount/round_to) * round_to)
+    return amount
 
 # ***************** Main Routine **************
 want_help = yes_no("Do you want to read the instructions: ")
