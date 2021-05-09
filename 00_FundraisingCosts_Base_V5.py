@@ -114,6 +114,55 @@ def round_up(var_amount, var_round_to):
     amount = int(math.ceil(amount/round_to) * round_to)
     return amount
 
+# Get profit goal(% or $)
+def profit_goal(total_costs):
+
+    valid = False
+    while not valid:
+
+        response = input("What is your profit goal (eg $500 or 50%)")
+
+        if response[0] == "$":
+            profit_type = "$"
+            amount = response[1:]
+        
+        elif response[-1] == "%":
+            profit_type = "%"
+            amount = response[:-1]
+        else: 
+            profit_type = "unknown"
+            amount = response
+
+        try: 
+            amount = float(amount)
+
+            if amount <= 0:
+                print(error)
+
+        except ValueError:
+            print (error)
+
+        if profit_type == "unknown" and amount >= 100:
+            dollar_type = yes_no("Do you mean ${:.2f}. ie {:.2f} dollars? (Y/N)".format(amount,amount))
+
+            if dollar_type == "yes":
+                profit_type = "$"
+            else:
+                profit_type = "%"
+        elif profit_type == "unknown" and amount < 100:
+            dollar_type = yes_no("Do you mean {:.2f}%. (Y/N)".format(amount))
+            
+            if dollar_type == "yes":
+                profit_type = "%"
+            else:
+                profit_type = "$"
+        
+        if profit_type == "$":
+            return amount
+        else:
+            goal = (amount/100) * total_costs
+            return goal
+
 # ***************** Main Routine **************
 want_help = yes_no("Do you want to read the instructions: ")
 print("You said {}".format(want_help))
@@ -121,14 +170,14 @@ print("You said {}".format(want_help))
 product_name = not_blank("Product name: ",
                          "The product name can't be blank")
 
+how_many = num_check("How many items will you be producing",
+                     "The number of items must be a whole number greater than 0 ", int)
 # Get Variable Costs
 print()
 print("**** Variable Costs *****")
-# get variable costs list(dataframe, subtotal)
+# get variable costs list
 variable_cost_data = get_expenses("variable")
-# get data frame from list
 variable_cost_frame = variable_cost_data[0]
-# get subtotal from list
 variable_cost_sub = variable_cost_data[1]
 
 # Ask if user has fixed costs
@@ -147,6 +196,22 @@ else:
     # Sets fixed sub total to zero for later calculations
     fixed_cost_sub = 0
 
+# work out total costs and profit target
+total_expenses = fixed_cost_sub + variable_cost_sub
+profit_target = profit_goal(total_expenses)
+
+# calculate total sales needed
+sales_needed = total_expenses + profit_target
+
+# Ask user for rounding
+round_to = num_check("Round to nearest...? $",
+                     "Cant be 0 or lower",
+                     int)
+
+selling_price = sales_needed/how_many
+
+Reccomended_price = round_up(Reccomended_price,round_to)
+
 # Show and format Product name
 print()
 print("**** {} ****" .format(product_name))
@@ -160,5 +225,11 @@ if(have_fixed == "yes"):
 
 # Display Total
 print()
-total_expenses = fixed_cost_sub + variable_cost_sub
+print("**** Profit and Sales Targets ****")
 print("Total Expenses: ${:.2f}".format(total_expenses))
+print("Profit Target: ${:.2f}".format(profit_target))
+
+print()
+print("**** Pricing ****")
+print("Minimum Price: ${:.2f}".format(selling_price))
+print("Reccomended Price ${:.2f}".format())
