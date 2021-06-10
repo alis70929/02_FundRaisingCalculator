@@ -15,16 +15,22 @@ variable_cost_frame = pandas.DataFrame(variable_dict)
 fixed_cost_frame = pandas.DataFrame(fixed_dict)
 
 product_name = "Custom Mugs"
+
 profit_target = "$100.00"
 required_sales = "$200.00"
 recommended_price = "$5.00"
+
+heading = "****{}****".format(product_name)
+profit_target_sentence = "Profit Target: {}".format(profit_target)
+required_sales_sentence = "Required Sales: {}".format(required_sales)
+recommended_price_sentence = "Recommended Sales: {}".format(recommended_price)
 
 # Chnage data frame to string so it can be written to txt file
 variable_cost_txt = pandas.DataFrame.to_string(variable_cost_frame)
 fixed_cost_txt = pandas.DataFrame.to_string(fixed_cost_frame)
 
 #list holding stuff to print/write to file
-to_write = [product_name,variable_cost_txt,fixed_cost_txt,profit_target,required_sales,recommended_price]
+to_write = [heading,variable_cost_txt,fixed_cost_txt,profit_target_sentence,required_sales_sentence,recommended_price_sentence]
 
 
 # Wirte to file

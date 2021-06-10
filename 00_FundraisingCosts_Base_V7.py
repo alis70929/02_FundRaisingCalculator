@@ -18,7 +18,7 @@ def num_check(question, error, num_type):
             print(error)
 
 
-# checks if answer is yes or no
+# loops till response is yes or no
 def yes_no(question):
     to_check = ["yes", "no"]
 
@@ -94,7 +94,7 @@ def currency(x):
     return '${:.2f}'.format(x)
 
 
-# lopps till anser is not blank
+# lopps till answer is not blank
 def not_blank(question, error_message):
     valid = False
 
@@ -106,7 +106,7 @@ def not_blank(question, error_message):
             print(error_message)
 
 
-# Formatting for data frame displays
+# Formatting data frames(returns a string)
 def format_frame(var_heading, frame, sub_total):
     heading = "**** {} ****\n\n".format(var_heading)
     frame = pandas.DataFrame.to_string(frame)
@@ -137,6 +137,7 @@ def profit_goal(total_costs):
         elif response[-1] == "%":
             profit_type = "%"
             amount = response[:-1]
+
         else:
             profit_type = "unknown"
             amount = response
@@ -149,6 +150,7 @@ def profit_goal(total_costs):
 
         except ValueError:
             print(error)
+            continue
 
         if profit_type == "unknown" and amount >= 100:
             dollar_type = yes_no("Do you mean ${:.2f}. ie {:.2f} dollars? (Y/N)".format(amount, amount))
@@ -172,13 +174,26 @@ def profit_goal(total_costs):
             return goal
 
 
+# formats strings with **** surronding them
 def heading_format(text_to_format):
     return "****{}****".format(text_to_format)
 
 
+# Asks user iif they want to read thge intstuctions
+def instructions():
+    show_help = 'invalid choice'
+    while show_help == 'invalid choice':
+        show_help = "Do you want to read the instructions: "
+        show_help = yes_no(show_help)
+
+        if show_help == "yes":
+            print("****** Instructions ******* ")
+            print(" Intructions go here")
+            input("\npress enter to continue")
+
+
 # ***************** Main Routine **************
-want_help = yes_no("Do you want to read the instructions: ")
-print("You said {}".format(want_help))
+instructions()
 
 product_name = not_blank("Product name: ",
                          "The product name can't be blank")
@@ -188,7 +203,7 @@ how_many = num_check("How many items will you be producing",
 # Get Variable Costs
 print()
 print("**** Variable Costs *****")
-# get variable costs list
+# get variable costs
 variable_cost_data = get_expenses("variable")
 variable_cost_frame = variable_cost_data[0]
 variable_cost_sub = variable_cost_data[1]
@@ -234,13 +249,14 @@ profit_target_sentence = "Profit Target: {:.2f}".format(profit_target)
 sales_needed_sentence = "Required Sales: {:.2f}".format(sales_needed)
 recommended_price_sentence = "Recommended Sales: {:.2f}".format(Recommended_price)
 
-# Chnage data frame to string so it can be written to txt file
+# Chnage data frame to string so it can be written to txt file with proper formatting
 variable_cost_txt = format_frame("Variable Costs", variable_cost_frame, variable_cost_sub)
 if have_fixed == "yes":
     fixed_cost_txt = format_frame("Fixed Cost", fixed_cost_frame, fixed_cost_sub)
 else:
-    fixed_cost_txt = ""
+    fixed_cost_txt = heading_format("No Fixed Costs")
 
+# store what you want to print/write to file
 to_write = [heading,
             variable_cost_txt,
             fixed_cost_txt,
@@ -257,10 +273,11 @@ text_file = open(file_name, "w+")
 # write items to file
 for item in to_write:
     text_file.write(item)
+    text_file.write("\n")
 
 # Close Text File
 text_file.close()
 
-# print the stuff
+# Print the items
 for item in to_write:
     print(item)

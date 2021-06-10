@@ -1,18 +1,11 @@
-Custom Mugs
+****Custom Mugs******** Variable Costs ****
 
-        Item  Price  Quantity
-0       Mugs   1.00       300
-1   Printing   0.50       300
-2  Packaging   0.75        50
+           Price  Quantity    Cost
+Item Name                         
+a          $4.00         3  $12.00
+Sub Total: $12.00**** Fixed Cost ****
 
-        Item  Price
-0       Rent     25
-1    Artwork     35
-2  Packaging     10
-
-$100.00
-
-$200.00
-
-$5.00
-
+           Price  Quantity   Cost
+Item Name                        
+my item    $3.00         1  $3.00
+Sub Total: $3.00Total Expenses: 15.00Profit Target: 7.50Required Sales: 22.50Recommended Sales: 5.00

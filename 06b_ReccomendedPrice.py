@@ -1,9 +1,11 @@
 import math
 
+
 # rounds up to multiple of round_to
 def round_up(amount, var_round_to):
-    amount = int(math.ceil(amount/round_to) * round_to)
+    amount = int(math.ceil(amount/var_round_to) * var_round_to)
     return amount
+
 
 # loops till number is valid(integer or float) and greater than 0
 def num_check(question, error, num_type):

@@ -17,6 +17,7 @@ def yes_no(question):
 
         print("Please enter yes or no")
 
+
 # Get profit goal(% or $)
 def profit_goal(total_costs):
 
@@ -28,22 +29,23 @@ def profit_goal(total_costs):
         if response[0] == "$":
             profit_type = "$"
             amount = response[1:]
-        
+
         elif response[-1] == "%":
             profit_type = "%"
             amount = response[:-1]
-        else: 
+
+        else:
             profit_type = "unknown"
             amount = response
 
-        try: 
+        try:
             amount = float(amount)
 
             if amount <= 0:
                 print(error)
 
         except ValueError:
-            print (error)
+            print(error)
 
         if profit_type == "unknown" and amount >= 100:
             dollar_type = yes_no("Do you mean ${:.2f}. ie {:.2f} dollars? (Y/N)".format(amount,amount))

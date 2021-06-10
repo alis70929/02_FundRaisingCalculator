@@ -1,6 +1,7 @@
 import pandas
 import math
 
+
 # loops till number is valid(integer or float) and greater than 0
 def num_check(question, error, num_type):
     valid = False
@@ -15,6 +16,7 @@ def num_check(question, error, num_type):
 
         except ValueError:
             print(error)
+
 
 # checks if answer is yes or no
 def yes_no(question):
@@ -32,6 +34,7 @@ def yes_no(question):
                 return item
 
         print("Please enter yes or no")
+
 
 # Get variable or fixed costs from user
 def get_expenses(var_fixed):
@@ -85,9 +88,11 @@ def get_expenses(var_fixed):
 
     return [expenses_frame, expenses_sub]
 
+
 # Currency formatting function
 def currency(x):
     return '${:.2f}'.format(x)
+
 
 # lopps till anser is not blank
 def not_blank(question, error_message):
@@ -100,6 +105,7 @@ def not_blank(question, error_message):
         else:
             print(error_message)
 
+
 # Formatting for data frame displays
 def display_frame(heading, frame, sub_total):
     print()
@@ -109,10 +115,12 @@ def display_frame(heading, frame, sub_total):
     print()
     print("Sub Total: ${:.2f}".format(sub_total))
 
+
 # rounds up to multiple of round_to
 def round_up(var_amount, var_round_to):
-    amount = int(math.ceil(amount/round_to) * round_to)
+    amount = int(math.ceil(var_amount / var_round_to) * var_round_to)
     return amount
+
 
 # Get profit goal(% or $)
 def profit_goal(total_costs):
@@ -140,7 +148,7 @@ def profit_goal(total_costs):
                 print(error)
 
         except ValueError:
-            print (error)
+            print(error)
 
         if profit_type == "unknown" and amount >= 100:
             dollar_type = yes_no("Do you mean ${:.2f}. ie {:.2f} dollars? (Y/N)".format(amount,amount))
@@ -151,17 +159,18 @@ def profit_goal(total_costs):
                 profit_type = "%"
         elif profit_type == "unknown" and amount < 100:
             dollar_type = yes_no("Do you mean {:.2f}%. (Y/N)".format(amount))
-            
+
             if dollar_type == "yes":
                 profit_type = "%"
             else:
                 profit_type = "$"
-        
+
         if profit_type == "$":
             return amount
         else:
-            goal = (amount/100) * total_costs
+            goal = (amount / 100) * total_costs
             return goal
+
 
 # ***************** Main Routine **************
 want_help = yes_no("Do you want to read the instructions: ")
@@ -208,9 +217,9 @@ round_to = num_check("Round to nearest...? $",
                      "Cant be 0 or lower",
                      int)
 
-selling_price = sales_needed/how_many
+selling_price = sales_needed / how_many
 
-Reccomended_price = round_up(Reccomended_price,round_to)
+Reccomended_price = round_up(selling_price, round_to)
 
 # Show and format Product name
 print()
